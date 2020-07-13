@@ -4,7 +4,10 @@ import { View, StyleSheet, Text, Button, StatusBar } from "react-native";
 import Constants from "expo-constants";
 
 import { connect } from "react-redux";
-import { logoutUser } from "../redux/actions";
+import { logoutUser, fetchFavorites, fetchTrending } from "../redux/actions";
+
+import TrendingItem from "../components/TrendingItem";
+import { ScrollView } from "react-native-gesture-handler";
 
 const TrendingScreen = (props) => {
   const [currentUser, setCurrentUser] = useState({});
@@ -12,29 +15,37 @@ const TrendingScreen = (props) => {
   useEffect(() => {
     const { currentUser } = Firebase.auth();
     setCurrentUser(currentUser);
+    props.fetchFavorites(currentUser.uid);
+    props.fetchTrending();
   }, []);
 
+  const TrendingItems = Object.keys(props.trendingList).map((key, index) => (
+    <View>
+      <Text>{key} </Text>
+      <Text>Favorite Count: {props.trendingList[key].favoriteCount}</Text>
+    </View>
+  ));
 
   return (
-      <View style={styles.container}>
-        <StatusBar barStyle="light-content" />
+    <ScrollView style={styles.container}>
+      <StatusBar barStyle="light-content" />
 
-        <Text style={styles.placeholder}>Hi {currentUser.email}!</Text>
-        <Button
-          title="Logout"
-          onPress={() => {
-            props.logoutUser();
-          }}
-        />
-      </View>
+      {TrendingItems}
+
+      {/* <Text style={styles.placeholder}>Hi {currentUser.email}!</Text>
+      <Button
+        title="Logout"
+        onPress={() => {
+          props.logoutUser();
+        }}
+      /> */}
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: "#fff",
-    justifyContent: "center",
     textAlign: "center",
     paddingTop: Constants.statusBarHeight,
   },
@@ -43,6 +54,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = (state) => ({});
+const mapStateToProps = (state) => ({ trendingList: state.trending });
 
-export default connect(mapStateToProps, { logoutUser })(TrendingScreen);
+export default connect(mapStateToProps, {
+  logoutUser,
+  fetchFavorites,
+  fetchTrending,
+})(TrendingScreen);

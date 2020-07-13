@@ -3,14 +3,17 @@ import { TouchableOpacity, StyleSheet, Text, Image, View } from "react-native";
 import PropTypes from "prop-types";
 
 const Row = (props) => (
-  <TouchableOpacity style={styles.row}>
+  <TouchableOpacity
+    style={styles.row}
+    onPress={() => props.handlePress(props.recipe)}
+  >
     <Image
       source={{ uri: props.recipe.image }}
-      style={{ width: 50, height: 75 }}
+      style={{ width: 80, height: 80, borderRadius: 100, marginLeft: 10 }}
     ></Image>
     <View style={styles.rowContainer}>
       <Text style={{ maxWidth: "80%" }}>{props.recipe.label}</Text>
-      <Text style={{ position: "absolute", right: 0 }}>
+      <Text style={{ color: "#202020", fontSize: 12 }}>
         {props.recipe.source}
       </Text>
     </View>
@@ -34,8 +37,9 @@ const styles = StyleSheet.create({
   rowContainer: {
     padding: 10,
     flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: "column",
+    alignItems: "flex-end",
+    justifyContent: "center",
   },
 });
 

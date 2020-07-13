@@ -1,14 +1,12 @@
 import React from "react";
 
 import { NavigationContainer } from "@react-navigation/native";
-import { createDrawerNavigator } from "@react-navigation/drawer";
-import CustomDrawerContentComponent from "./components/CustomDrawerContentComponent";
+import { createDrawerNavigator, DrawerItem } from "@react-navigation/drawer";
+import CustomDrawerContent from "./components/CustomDrawerContentComponent";
 
 import MainTabs from "./MainTabs";
+import About from "./screens/AboutScreen";
 const Drawer = createDrawerNavigator();
-// const Drawer = createDrawerNavigator({
-//   contentComponent: CustomDrawerContentComponent,
-// });
 
 export default function MainDrawer() {
   return (
@@ -18,10 +16,11 @@ export default function MainDrawer() {
           width: 240,
         }}
         drawerContentOptions={{ activeTintColor: "#008080" }}
+        drawerContent={(props) => <CustomDrawerContent {...props} />}
       >
         <Drawer.Screen name="Home" component={MainTabs} />
+        <Drawer.Screen name="About" component={About} />
         <Drawer.Screen name="Settings" component={MainTabs} />
-        <Drawer.Screen name="About" component={MainTabs} />
       </Drawer.Navigator>
     </NavigationContainer>
   );

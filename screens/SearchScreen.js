@@ -16,19 +16,22 @@ import { fetchRecipes } from "../redux/actions";
 import Row from "../components/Row";
 function SearchScreen(props) {
   const [input, inputChange] = useState("");
-
+  const [init, setInit] = useState(true);
   const handleSubmit = () => {
+    setInit(false);
     let query = input.split(" ").join("%20");
     props.fetchRecipes(query);
   };
 
-  useEffect(() => {
-    console.log(props.results);
-  }, [props.results]);
+  const handlePress = (recipe) => {
+    props.navigation.navigate("Recipe", recipe);
+  };
 
   const resultRows =
     props.results &&
-    props.results.map((result, index) => <Row recipe={result.recipe} />);
+    props.results.map((result, index) => (
+      <Row key={index} recipe={result.recipe} handlePress={handlePress} />
+    ));
 
   return (
     <View style={styles.container}>
@@ -62,10 +65,11 @@ function SearchScreen(props) {
         />
       </View>
 
-      {/* {!resultRows && (
+      {!resultRows && !init ? (
         <ActivityIndicator size="large" style={styles.activityIndicator} />
-      )} */}
-      <ScrollView>{resultRows}</ScrollView>
+      ) : (
+        <ScrollView style={styles.scrollView}>{resultRows}</ScrollView>
+      )}
     </View>
   );
 }
@@ -116,6 +120,7 @@ const styles = StyleSheet.create({
     color: "#008080",
     fontSize: 20,
     alignSelf: "flex-end",
+    marginTop: 20,
     marginBottom: 20,
     marginRight: 25,
   },
@@ -137,6 +142,9 @@ const styles = StyleSheet.create({
   activityIndicator: {
     marginTop: "auto",
     marginBottom: "auto",
+  },
+  scrollView: {
+    marginTop: 20,
   },
 });
 

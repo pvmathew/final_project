@@ -4,7 +4,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import TrendingStack from "./TrendingStack";
-import FavoritesScreen from "./screens/FavoritesScreen";
+import FavoritesStack from "./FavoritesStack";
 
 const MainTabs = () => {
   const Tab = createBottomTabNavigator();
@@ -24,7 +24,7 @@ const MainTabs = () => {
       }}
     >
       <Tab.Screen name="Trending" component={TrendingStack} />
-      <Tab.Screen name="Favorites" component={FavoritesScreen} />
+      <Tab.Screen name="Favorites" component={FavoritesStack} />
     </Tab.Navigator>
   );
 };
