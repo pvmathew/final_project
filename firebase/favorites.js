@@ -39,7 +39,6 @@ const authMethods = {
   },
   fetchTrending: async () => {
     let trendingRef = Firebase.database().ref("trending/");
-
     return trendingRef.once("value").then((snapshot) => snapshot.val());
   },
 };

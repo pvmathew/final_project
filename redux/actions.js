@@ -92,9 +92,6 @@ export const removeFavorite = (userID, recipeID, title) => async (dispatch) => {
 export const fetchTrending = () => async (dispatch) => {
   dispatch({ type: FETCHING_TRENDING });
   favorites.fetchTrending().then((res) => {
-    console.log("HI");
-    console.log(res);
-
     dispatch({ type: TRENDING_FETCH_COMPLETE, payload: res });
   });
 };

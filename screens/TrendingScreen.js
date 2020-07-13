@@ -19,12 +19,14 @@ const TrendingScreen = (props) => {
     props.fetchTrending();
   }, []);
 
-  const TrendingItems = Object.keys(props.trendingList).map((key, index) => (
-    <View>
-      <Text>{key} </Text>
-      <Text>Favorite Count: {props.trendingList[key].favoriteCount}</Text>
-    </View>
-  ));
+  const TrendingItems = Object.keys(props.trendingList).map((key, index) => 
+    <TrendingItem name={key} meta={props.trendingList[key]}/>
+
+    // <View key={index}>
+    //   <Text>{key} </Text>
+    //   <Text>Favorite Count: {props.trendingList[key].favoriteCount}</Text>
+    // </View>
+  );
 
   return (
     <ScrollView style={styles.container}>
@@ -45,7 +47,7 @@ const TrendingScreen = (props) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#fff",
+    backgroundColor: "#f0f0f0",
     textAlign: "center",
     paddingTop: Constants.statusBarHeight,
   },
