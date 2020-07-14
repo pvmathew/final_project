@@ -16,6 +16,11 @@ const authMethods = {
 
     let trendingRef = Firebase.database().ref("trending/").child(recipe.label);
     let favoritesCountRef = trendingRef.child("favoriteCount");
+    trendingRef.set({
+      source: recipe.source,
+      img: recipe.image,
+      url: recipe.url,
+    });
 
     favoritesCountRef.transaction(
       (favoritesCount) => (favoritesCount || 0) + 1

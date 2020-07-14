@@ -19,28 +19,15 @@ const TrendingScreen = (props) => {
     props.fetchTrending();
   }, []);
 
-  const TrendingItems = Object.keys(props.trendingList).map((key, index) => 
-    <TrendingItem name={key} meta={props.trendingList[key]}/>
-
-    // <View key={index}>
-    //   <Text>{key} </Text>
-    //   <Text>Favorite Count: {props.trendingList[key].favoriteCount}</Text>
-    // </View>
-  );
+  const TrendingItems = Object.keys(props.trendingList).map((key, index) => (
+    <TrendingItem key={index} name={key} meta={props.trendingList[key]} navigate={props.navigation.navigate} />
+  ));
 
   return (
     <ScrollView style={styles.container}>
       <StatusBar barStyle="light-content" />
 
       {TrendingItems}
-
-      {/* <Text style={styles.placeholder}>Hi {currentUser.email}!</Text>
-      <Button
-        title="Logout"
-        onPress={() => {
-          props.logoutUser();
-        }}
-      /> */}
     </ScrollView>
   );
 };

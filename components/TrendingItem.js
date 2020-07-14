@@ -1,36 +1,58 @@
 import React from "react";
-import { TouchableOpacity, StyleSheet, Text, Image, View } from "react-native";
+import {
+  TouchableOpacity,
+  StyleSheet,
+  Text,
+  Image,
+  View,
+  Share,
+} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import recipeMethods from "../api/recipe";
 
 const TrendingItem = (props) => (
   <View
     style={styles.container}
-    // onPress={() => console.log("pressed!")}
   >
-    <Image
-      source={{
-        uri:
-          "https://www.edamam.com/web-img/963/963d9b449da917aa40ac6df01672baa9.jpg",
-      }}
-      style={styles.image}
-    />
+    <TouchableOpacity
+      onPress={() => props.navigate("Recipe", { title: props.name, ...props.meta })}
+    >
+      <Image
+        source={{
+          uri: props.meta.img,
+        }}
+        style={styles.image}
+      />
+    </TouchableOpacity>
     <Text style={styles.name}>{props.name}</Text>
-    <Text style={styles.subname}>Subtitle</Text>
+    <Text style={styles.subname}>{props.meta.source}</Text>
     <View style={styles.bottomContainer}>
       <View style={styles.favoriteContainer}>
-      <Ionicons
+        <Ionicons
           name="ios-star"
           size={25}
           color="gray"
           style={styles.shareIcon}
         />
-        <Text style={styles.favoriteText}>
-          {props.meta.favoriteCount}
-        </Text>
+        <Text style={styles.favoriteText}>{props.meta.favoriteCount}</Text>
       </View>
 
-      <TouchableOpacity style={styles.shareButton}>
+      <TouchableOpacity
+        style={styles.shareButton}
+        onPress={() =>
+          Share.share({
+            message: props.name + ": " + props.meta.url,
+          }).then((res) => {
+            if (res.action === Share.sharedAction) {
+              if (res.activityType) {
+              } else {
+                // shared
+              }
+            } else if (res.action === Share.dismissedAction) {
+              // dismissed
+            }
+          })
+        }
+      >
         <Text style={styles.shareText}></Text>
         <Ionicons
           name="md-share"
@@ -65,7 +87,7 @@ const styles = StyleSheet.create({
     borderColor: "#008080",
   },
   name: { fontSize: 20, fontWeight: "bold", marginTop: 10 },
-  subname: { fontSize: 12, marginBottom: 10,},
+  subname: { fontSize: 12, marginBottom: 10 },
   bottomContainer: {
     flexDirection: "row",
     // borderTopWidth: 1,
