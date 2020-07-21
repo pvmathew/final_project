@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
   },
   viewDetail: {
     width: "90%",
+    marginBottom: 20,
     borderRadius: 10,
     backgroundColor: "#008080",
     shadowOffset: { width: 0, height: 0 },
