@@ -28,41 +28,64 @@ const TrendingScreen = (props) => {
     props.fetchTrending();
   }, []);
 
+  const AllTrendingItems = Object.keys(props.trendingList).map((key, index) => (
+    <View style={styles.tableHeader} key={index}>
+      <Text style={styles.ranking}>{index + 1}</Text>
+      <Text style={styles.recipe}> {key} </Text>
+      <Text style={styles.numFavorites}>
+        {props.trendingList[key].favoriteCount}
+      </Text>
+    </View>
+  ));
+
   return (
     <ScrollView style={styles.container}>
       <StatusBar barStyle="light-content" />
-      <Text>This page will show a detailed summary of the top recipes</Text>
+      <View style={styles.tableHeader}>
+        <Text style={{ ...styles.ranking, fontWeight: "bold" }}> Ranking </Text>
+        <Text style={{ ...styles.recipe, fontWeight: "bold" }}> Recipe </Text>
+        <Text style={{ ...styles.numFavorites, fontWeight: "bold" }}>
+          {" "}
+          Favorites{" "}
+        </Text>
+      </View>
+      {AllTrendingItems}
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#f0f0f0",
+    backgroundColor: "#fff",
     textAlign: "center",
-    paddingTop: Constants.statusBarHeight,
-    // alignItems:"center"
-  },
-  placeholder: {
-    textAlign: "center",
-  },
-  viewButton: {
-    width: "90%",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    borderLeftWidth: 1,
-    borderLeftColor: "gray",
+    margin: 10,
     borderRadius: 10,
-    backgroundColor: "#008080",
-    marginBottom: 60,
-    marginLeft: "auto",
-    marginRight: "auto",
+    padding: 10,
+    // shadowOffset: { width: 0, height: 0 },
+    // shadowColor: "black",
+    // shadowOpacity: 0.25,
   },
-  viewButtonText: {
-    paddingVertical: 12,
-    color: "white",
-    fontWeight: "bold",
+  tableHeader: {
+    flexDirection: "row",
+    alignSelf: "stretch",
+    flex: 1,
+    borderBottomColor: "lightgray",
+    borderBottomWidth: 1,
+    paddingVertical: 15,
+  },
+  ranking: {
+    alignSelf: "stretch",
+    textAlign: "center",
+    flex: 1,
+  },
+  recipe: {
+    alignSelf: "stretch",
+    flex: 2,
+  },
+  numFavorites: {
+    alignSelf: "stretch",
+    flex: 1,
+    textAlign: "center",
   },
 });
 
