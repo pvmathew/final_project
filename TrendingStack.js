@@ -7,6 +7,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import TrendingScreen from "./screens/TrendingScreen";
 import SearchScreen from "./screens/SearchScreen";
 import RecipeScreen from "./screens/RecipeScreen";
+import TrendingDetailScreen from "./screens/TrendingDetailScreen";
 
 const Stack = createStackNavigator();
 
@@ -47,6 +48,20 @@ const TrendingStack = ({ navigation }) => (
       }}
     />
     <Stack.Screen
+      name="TrendingDetails"
+      component={TrendingDetailScreen}
+      options={{
+        title: "All Trending",
+        headerStyle: {
+          backgroundColor: "#008080",
+        },
+        headerTintColor: "#fff",
+        headerTitleStyle: {
+          fontWeight: "bold",
+        },
+      }}
+    />
+    <Stack.Screen
       name="Search"
       component={SearchScreen}
       options={{ headerShown: false }}
@@ -62,7 +77,6 @@ const TrendingStack = ({ navigation }) => (
         headerTitleStyle: {
           fontWeight: "bold",
         },
-
       }}
     />
   </Stack.Navigator>

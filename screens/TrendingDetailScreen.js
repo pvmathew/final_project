@@ -7,8 +7,9 @@ import {
   Button,
   StatusBar,
   Vibration,
+  TouchableOpacity,
 } from "react-native";
-import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
+import { ScrollView } from "react-native-gesture-handler";
 
 import { connect } from "react-redux";
 import { logoutUser, fetchFavorites, fetchTrending } from "../redux/actions";
@@ -27,29 +28,10 @@ const TrendingScreen = (props) => {
     props.fetchTrending();
   }, []);
 
-  const TrendingItems = Object.keys(props.trendingList).map((key, index) => (
-    <TrendingItem
-      key={index}
-      name={key}
-      meta={props.trendingList[key]}
-      navigate={props.navigation.navigate}
-    />
-  ));
-
   return (
     <ScrollView style={styles.container}>
       <StatusBar barStyle="light-content" />
-
-      {TrendingItems}
-
-      <TouchableOpacity
-        style={styles.viewDetail}
-        onPress={async () => {
-          props.navigation.navigate("TrendingDetails");
-        }}
-      >
-        <Text style={styles.viewDetailText}>View More</Text>
-      </TouchableOpacity>
+      <Text>This page will show a detailed summary of the top recipes</Text>
     </ScrollView>
   );
 };
@@ -59,23 +41,28 @@ const styles = StyleSheet.create({
     backgroundColor: "#f0f0f0",
     textAlign: "center",
     paddingTop: Constants.statusBarHeight,
+    // alignItems:"center"
   },
   placeholder: {
     textAlign: "center",
   },
-  viewDetail: {
+  viewButton: {
     width: "90%",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    borderLeftWidth: 1,
+    borderLeftColor: "gray",
     borderRadius: 10,
     backgroundColor: "#008080",
-    shadowOffset: { width: 0, height: 0 },
-    alignItems: "center",
     marginBottom: 60,
     marginLeft: "auto",
     marginRight: "auto",
   },
-  viewDetailText: {
-    color: "white",
+  viewButtonText: {
     paddingVertical: 12,
+    color: "white",
+    fontWeight: "bold",
   },
 });
 
