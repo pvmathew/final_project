@@ -10,11 +10,11 @@ import {
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 const TrendingItem = (props) => (
-  <View
-    style={styles.container}
-  >
+  <View style={styles.container}>
     <TouchableOpacity
-      onPress={() => props.navigate("Recipe", { title: props.name, ...props.meta })}
+      onPress={() =>
+        props.navigate("Recipe", { title: props.name, ...props.meta })
+      }
     >
       <Image
         source={{
