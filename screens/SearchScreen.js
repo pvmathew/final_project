@@ -8,6 +8,7 @@ import {
   StatusBar,
   ActivityIndicator,
   ScrollView,
+  Keyboard,
 } from "react-native";
 import Constants from "expo-constants";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -19,6 +20,7 @@ function SearchScreen(props) {
   const [init, setInit] = useState(true);
   const handleSubmit = () => {
     setInit(false);
+    Keyboard.dismiss();
     let query = input.split(" ").join("%20");
     props.fetchRecipes(query);
   };

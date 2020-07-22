@@ -24,7 +24,7 @@ const FavoritesScreen = (props) => {
   }, [props.favoritesList]);
 
   let favoriteRows = Object.keys(props.favoritesList).map((key, index) => (
-    <View style={styles.favoritesRow}>
+    <View style={styles.favoritesRow} key={index}>
       <TouchableOpacity
         style={styles.recipeContainer}
         onPress={() =>
